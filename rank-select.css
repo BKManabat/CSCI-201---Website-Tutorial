@@ -1,4 +1,5 @@
-#lesson-content:has(#bit-query-demo) {
+#lesson-content:has(#bit-query-demo),
+#lesson-content:has(#block-count-demo) {
   min-width: 0;
 }
 

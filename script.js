@@ -5916,6 +5916,7 @@ function render() {
   initSASamplingStepper();
   initComplexityStepper();
   initRankSelect();
+  initBitVectors();
   initReadMappingStepper();
   initBowtieStepper();
   initBWAStepper();
