@@ -1275,20 +1275,94 @@ const lessons = [
         id: "read-mapping",
         title: "Read Mapping",
         html: `
-          <div class="mini-label">Bioinformatics problem</div>
-          <h2>How do we map DNA reads?</h2>
+          <div class="mini-label">Applications in Bioinformatics</div>
+          <h2>The Read-Mapping Problem</h2>
 
           <p>
-            Read mapping finds plausible positions
-            in a reference genome for short sequences
-            obtained from sequencing machines.
+            High-throughput DNA sequencing produces many short sequences
+            called <strong>reads</strong>. Read mapping tries to determine
+            where each read belongs in a much longer
+            <strong>reference genome</strong>.
           </p>
 
           <p>
-            The task is difficult when the genome
-            is long, the number of reads is large,
-            or reads contain sequencing errors
-            and genetic differences.
+            This presents two main challenges. First, very large numbers
+            of reads must be searched against a large genome with reasonable
+            time and memory requirements. For scale, one copy of the human
+            genome contains approximately <strong>3 billion base pairs</strong>.
+            Second, a read may match more than one reference location equally
+            well, making its original location ambiguous.
+          </p>
+
+          <div class="callout">
+            <p>
+              <strong>Teaching example:</strong> Use the small reference
+              <code>ACGTACGT</code> and the read <code>ACGT</code>.
+              This example illustrates the mapping problem; it is
+              <em>not</em> a full Bowtie or BWA alignment simulation.
+            </p>
+          </div>
+
+          <div class="stepper" id="read-mapping-stepper">
+            <div class="mini-label">
+              Interactive Read-Mapping Walkthrough
+            </div>
+
+            <div id="read-mapping-output"
+                 class="stepper-output"
+                 aria-live="polite"></div>
+
+            <div class="stepper-controls">
+              <button type="button" class="btn secondary"
+                      id="read-mapping-prev">
+                ← Previous
+              </button>
+
+              <button type="button" class="btn"
+                      id="read-mapping-next">
+                Next step →
+              </button>
+
+              <button type="button" class="btn secondary"
+                      id="read-mapping-reset">
+                Reset
+              </button>
+
+              <span id="read-mapping-progress"
+                    class="lesson-position"></span>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p>
+              <strong>Other mapping tasks:</strong>
+              DNA-focused short-read aligners and splice-aware
+              RNA-seq aligners solve related but different problems.
+              RNA-seq reads may span large introns; splice-aware
+              tools are designed to recognize these gaps.
+            </p>
+          </div>
+
+          <p>
+            <strong>Next:</strong> Bowtie and BWA use BWT-based indexing
+            together with additional search strategies to align reads
+            that may not match the reference exactly.
+          </p>
+
+          <p class="mini-label">
+            Sources:
+            <a href="https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Fact-Sheet"
+               target="_blank" rel="noopener noreferrer">
+              NHGRI
+            </a>,
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2690996/"
+               target="_blank" rel="noopener noreferrer">
+              Langmead et al. (2009)
+            </a>,
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2705234/"
+               target="_blank" rel="noopener noreferrer">
+              Li and Durbin (2009)
+            </a>.
           </p>
         `
       },
@@ -1296,33 +1370,104 @@ const lessons = [
         id: "bowtie",
         title: "Bowtie",
         html: `
-          <div class="mini-label">Langmead et al., 2009</div>
-          <h2>Fast alignment with controlled mismatch search</h2>
+          <div class="mini-label">Applications in Bioinformatics</div>
+          <h2>Bowtie: Fast DNA Read Alignment</h2>
 
           <p>
-            Original Bowtie builds on a BWT-based index.
-            Its quality-aware backtracking considers
-            permitted substitutions, and its forward
-            and mirror indexes help limit
-            excessive backtracking.
+            <strong>Bowtie</strong>, introduced by Langmead et al.
+            in 2009, is a fast and memory-efficient program for
+            aligning short DNA reads against large reference genomes.
+            It uses BWT-based indexing together with
+            <strong>quality-aware backtracking</strong> and
+            <strong>double indexing</strong>.
           </p>
 
-          <div class="example-grid">
-            <div class="example-box">
-              <strong>Forward reference</strong>
-              <code>ACGTACGT$</code>
+          <p>
+            Standard FM-Index Backward Search finds exact matches.
+            However, DNA reads may contain sequencing errors or
+            genetic variations that prevent an exact match.
+            Bowtie extends this searching approach by allowing
+            permitted nucleotide substitutions.
+          </p>
+
+          <div class="callout">
+            <p>
+              <strong>The problem:</strong>
+              Allowing substitutions creates many possible
+              search paths. Exploring too many unsuccessful
+              paths is called <strong>excessive backtracking</strong>.
+              Bowtie uses double indexing and quality-aware
+              search to help control this problem.
+            </p>
+          </div>
+
+          <h3>Interactive Bowtie Walkthrough</h3>
+
+          <p>
+            We will examine how Bowtie uses forward and mirror
+            indexes, then demonstrate how a low-quality
+            nucleotide can be considered as a mismatch.
+          </p>
+
+          <div class="stepper" id="bowtie-stepper">
+            <div class="mini-label">
+              Double Indexing and Quality-Aware Backtracking
             </div>
-            <div class="example-box">
-              <strong>Mirror reference</strong>
-              <code>TGCATGCA$</code>
+
+            <div id="bowtie-output"
+                 class="stepper-output"
+                 aria-live="polite"></div>
+
+            <div class="stepper-controls">
+              <button type="button" class="btn secondary"
+                      id="bowtie-prev">
+                ← Previous
+              </button>
+
+              <button type="button" class="btn"
+                      id="bowtie-next">
+                Next step →
+              </button>
+
+              <button type="button" class="btn secondary"
+                      id="bowtie-reset">
+                Reset
+              </button>
+
+              <span id="bowtie-progress"
+                    class="lesson-position"></span>
             </div>
           </div>
 
+          <div class="callout">
+            <p>
+              <strong>Important distinction:</strong>
+              This lesson explains the original Bowtie
+              algorithm published in 2009. Original Bowtie
+              supports ungapped alignments with permitted
+              mismatches, but does not support insertions
+              or deletions. Bowtie 2 is a separate, later
+              implementation that supports gapped alignment.
+            </p>
+          </div>
+
           <p>
-            Original Bowtie (2009) handles mismatches
-            but not gapped alignments.
-            Later versions of Bowtie are different
-            and should be distinguished.
+            <strong>Next:</strong>
+            We will examine BWA, which also uses BWT-based
+            indexing but extends inexact searching to
+            handle insertions and deletions.
+          </p>
+
+          <p class="mini-label">
+            Sources:
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2690996/"
+               target="_blank" rel="noopener noreferrer">
+              Langmead et al. (2009)
+            </a>,
+            <a href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml"
+               target="_blank" rel="noopener noreferrer">
+              Bowtie 2 Manual
+            </a>.
           </p>
         `
       },
@@ -1330,31 +1475,104 @@ const lessons = [
         id: "bwa",
         title: "BWA",
         html: `
-          <div class="mini-label">Li and Durbin, 2009</div>
-          <h2>Bounded inexact searching with gaps</h2>
+          <div class="mini-label">Applications in Bioinformatics</div>
+          <h2>BWA: DNA Alignment with Mismatches and Gaps</h2>
 
           <p>
-            Original BWA extends BWT-based searching
-            to consider substitutions, insertions,
-            and deletions.
+            The <strong>Burrows-Wheeler Aligner (BWA)</strong>,
+            introduced by Li and Durbin in 2009, uses BWT-based
+            indexing to align short DNA reads against large
+            reference genomes.
           </p>
 
           <p>
-            Its lower-bound array <code>D(i)</code>
-            allows the search to prune branches
-            that cannot satisfy the remaining
-            difference allowance.
+            Unlike the original Bowtie algorithm, BWA supports
+            alignments involving <strong>mismatches, insertions,
+            and deletions</strong>, collectively called
+            differences or edits.
           </p>
 
-          <div class="formula">
-            If remaining allowance z &lt; D(i),
-            prune the branch.
+          <div class="callout">
+            <p>
+              <strong>The problem:</strong>
+              Allowing different types of edits creates many
+              possible alignment paths. Searching every possible
+              combination can require excessive computation.
+            </p>
+
+            <p>
+              <strong>BWA's approach:</strong>
+              Extend FM-Index backward searching with bounded
+              inexact matching and use a lower-bound array
+              <code>D(i)</code> to eliminate search branches
+              that cannot satisfy the remaining edit allowance.
+            </p>
           </div>
 
+          <h3>Interactive BWA Walkthrough</h3>
+
           <p>
-            We will add the fully worked
-            <code>ACGTACGT</code> versus
-            <code>ACGACGT</code> example here.
+            We will use the reference <code>ACGTACGT</code>
+            and read <code>ACGACGT</code>.
+            Follow each step to examine the missing nucleotide,
+            construct the lower-bound array, and understand
+            how BWA prunes unsuccessful search branches.
+          </p>
+
+          <div class="stepper" id="bwa-stepper">
+            <div class="mini-label">
+              Inexact Matching and Lower-Bound Pruning
+            </div>
+
+            <div id="bwa-output"
+                 class="stepper-output"
+                 aria-live="polite"></div>
+
+            <div class="stepper-controls">
+              <button type="button" class="btn secondary"
+                      id="bwa-prev">
+                ← Previous
+              </button>
+
+              <button type="button" class="btn"
+                      id="bwa-next">
+                Next step →
+              </button>
+
+              <button type="button" class="btn secondary"
+                      id="bwa-reset">
+                Reset
+              </button>
+
+              <span id="bwa-progress"
+                    class="lesson-position"></span>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p>
+              <strong>Important:</strong>
+              D(i) is a lower bound on the number of
+              differences required for the read prefix
+              ending at position i. It is not necessarily
+              the exact number of edits in the final alignment.
+            </p>
+
+            <p>
+              This lesson uses the original BWA algorithm
+              from 2009. Later algorithms such as BWA-MEM
+              use different alignment strategies.
+            </p>
+          </div>
+
+          <p class="mini-label">
+            Source:
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2705234/"
+               target="_blank" rel="noopener noreferrer">
+              Li and Durbin (2009),
+              Fast and Accurate Short Read Alignment
+              with Burrows-Wheeler Transform
+            </a>.
           </p>
         `
       }
@@ -4391,6 +4609,1226 @@ function initComplexityStepper() {
 
     showStep();
 }
+
+function initReadMappingStepper() {
+    if (!$("read-mapping-stepper")) return;
+
+    const reference = "ACGTACGT";
+    const read = "ACGT";
+    const changedRead = "ACGA";
+
+    // Find all exact candidate locations using 0-based indexing.
+    const candidates = Array.from(
+        { length: reference.length - read.length + 1 },
+        (_, start) => ({
+            start,
+            segment: reference.slice(start, start + read.length),
+            exact: reference.slice(start, start + read.length) === read
+        })
+    );
+
+    const matches = candidates.filter(item => item.exact);
+
+    // Count differences between two equally sized sequences.
+    const mismatchCount = (a, b) =>
+        [...a].filter((ch, i) => ch !== b[i]).length;
+
+    const output = $("read-mapping-output");
+    const previous = $("read-mapping-prev");
+    const next = $("read-mapping-next");
+    const reset = $("read-mapping-reset");
+    const progress = $("read-mapping-progress");
+
+    let step = 0;
+
+    // Display every possible reference substring.
+    function candidateTable() {
+        const rows = candidates.map(item => `
+            <tr style="${item.exact ? 'background:#e9f6f3;' : ''}">
+                <td>${item.start}</td>
+                <td><code>${item.segment}</code></td>
+                <td>
+                    ${item.exact ? 'Exact match' : 'Not a match'}
+                </td>
+            </tr>
+        `).join("");
+
+        return `
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Starting position (0-based)</th>
+                            <th>Reference substring</th>
+                            <th>Comparison to read</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        ${rows}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    const stages = [
+        {
+            title: "Step 0: Reference Genome and Read",
+            body: `
+                <p>
+                    Our reference is a short teaching string.
+                    A real reference genome may contain billions
+                    of bases.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Reference</strong>
+                        <code>${reference}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Read to map</strong>
+                        <code>${read}</code>
+                    </div>
+                </div>
+
+                <p>
+                    We want to find every starting position where
+                    this read appears in the reference.
+                    All positions use 0-based indexing.
+                </p>
+            `
+        },
+        {
+            title: "Step 1: Compare Candidate Locations",
+            body: `
+                <p>
+                    For an exact match, compare the read with
+                    every possible length-${read.length}
+                    reference substring.
+                </p>
+
+                ${candidateTable()}
+
+                <div class="formula">
+                    Exact match positions =
+                    ${matches.map(x => x.start).join(", ")}
+                </div>
+
+                <p>
+                    This direct scan illustrates the problem.
+                    Real aligners use indexing to avoid repeatedly
+                    scanning the full reference.
+                </p>
+            `
+        },
+        {
+            title: "Step 2: Why Repeats Make Mapping Ambiguous",
+            body: `
+                <p>
+                    The read <code>${read}</code> occurs at
+                    <strong>${matches.length} positions</strong>:
+                    <code>${matches.map(x => x.start).join(" and ")}</code>.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Positions 0–3</strong>
+                        <code>${reference.slice(0, 4)}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Positions 4–7</strong>
+                        <code>${reference.slice(4, 8)}</code>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <p>
+                        <strong>Important:</strong>
+                        Finding two exact matches does not reveal
+                        which location actually produced the read.
+                        This is called
+                        <strong>ambiguous mapping</strong>.
+                    </p>
+                </div>
+            `
+        },
+        {
+            title: "Step 3: Reads May Contain Differences",
+            body: `
+                <p>
+                    Suppose the observed read is
+                    <code>${changedRead}</code>
+                    rather than <code>${read}</code>.
+                    It has no exact match in our reference,
+                    but differs by only one nucleotide from
+                    <code>${read}</code>.
+                </p>
+
+                <div class="formula">
+                    ${changedRead} vs. ${read}:
+                    ${mismatchCount(changedRead, read)} mismatch
+                </div>
+
+                <p>
+                    A difference may arise from a sequencing error
+                    or a genuine genetic variation.
+                    Other alignments can contain insertions
+                    or deletions, called <strong>indels</strong>.
+                </p>
+
+                <div class="callout">
+                    <p>
+                        <strong>Why this matters:</strong>
+                        Exact FM-Index backward search is not
+                        enough to handle these differences
+                        by itself. Bowtie and BWA add
+                        alignment search strategies.
+                    </p>
+                </div>
+            `
+        }
+    ];
+
+    // Display the selected walkthrough step.
+    function showStep() {
+        output.innerHTML = `
+            <h3>${stages[step].title}</h3>
+            ${stages[step].body}
+        `;
+
+        previous.disabled = step === 0;
+        next.disabled = step === stages.length - 1;
+
+        next.textContent = next.disabled
+            ? "Complete ✓"
+            : "Next step →";
+
+        progress.textContent =
+            `Step ${step} of ${stages.length - 1}`;
+    }
+
+    previous.addEventListener("click", () => {
+        step = Math.max(0, step - 1);
+        showStep();
+    });
+
+    next.addEventListener("click", () => {
+        step = Math.min(stages.length - 1, step + 1);
+        showStep();
+    });
+
+    reset.addEventListener("click", () => {
+        step = 0;
+        showStep();
+    });
+
+    showStep();
+}
+
+function initBowtieStepper() {
+    if (!$("bowtie-stepper")) return;
+
+    const reference = "ACGTACGT";
+    const forwardText = reference + "$";
+    const mirrorReference = [...reference].reverse().join("");
+    const mirrorText = mirrorReference + "$";
+
+    const read = "ACGTACGA";
+    const reversedRead = [...read].reverse().join("");
+
+    const qualityScore = 8;
+    const qualityLimit = 70;
+
+    // Naive BWT construction for this small teaching example.
+    // Real aligners use more efficient index construction.
+    function constructBWT(text) {
+        const rotations = Array.from(
+            { length: text.length },
+            (_, i) => text.slice(i) + text.slice(0, i)
+        );
+
+        const sorted = [...rotations].sort();
+
+        return sorted.map(
+            rotation => rotation[rotation.length - 1]
+        ).join("");
+    }
+
+    const forwardBWT = constructBWT(forwardText);
+    const mirrorBWT = constructBWT(mirrorText);
+
+    // Identify positions where the read differs from the reference.
+    const mismatches = [...read].map((character, i) => ({
+        position: i,
+        referenceBase: reference[i],
+        readBase: character,
+        mismatch: character !== reference[i]
+    })).filter(item => item.mismatch);
+
+    const output = $("bowtie-output");
+    const previous = $("bowtie-prev");
+    const next = $("bowtie-next");
+    const reset = $("bowtie-reset");
+    const progress = $("bowtie-progress");
+
+    let step = 0;
+
+    // Display a base-by-base comparison.
+    function comparisonTable(first, second, firstLabel, secondLabel) {
+        const rows = [...first].map((character, i) => {
+            const different = character !== second[i];
+
+            return `
+                <tr style="${different
+                    ? 'background:#fff0e8;'
+                    : ''}">
+                    <td>${i}</td>
+                    <td><code>${character}</code></td>
+                    <td><code>${second[i]}</code></td>
+                    <td>
+                        ${different ? "Mismatch" : "Match"}
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+        return `
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>${firstLabel}</th>
+                            <th>${secondLabel}</th>
+                            <th>Comparison</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    const stages = [
+        {
+            title: "Start: Why Does Bowtie Need Backtracking?",
+            body: `
+                <p>
+                    Consider the reference sequence
+                    <code>${reference}</code>
+                    and the observed read
+                    <code>${read}</code>.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Reference</strong>
+                        <code>${reference}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Sequencing read</strong>
+                        <code>${read}</code>
+                    </div>
+                </div>
+
+                ${comparisonTable(
+                    reference,
+                    read,
+                    "Reference",
+                    "Read"
+                )}
+
+                <p>
+                    There is <strong>${mismatches.length}
+                    mismatch</strong> between these sequences.
+                    Exact Backward Search would not find this
+                    full-length read in the reference.
+                </p>
+
+                <div class="callout">
+                    <p>
+                        <strong>Bowtie's approach:</strong>
+                        Permit selected substitutions during
+                        searching, while limiting the number
+                        of unsuccessful paths explored.
+                    </p>
+                </div>
+            `
+        },
+
+        {
+            title: "Step 1: Construct the Forward Index",
+            body: `
+                <p>
+                    The forward index is constructed using
+                    the original reference genome sequence.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Forward reference</strong>
+                        <code>${forwardText}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Forward BWT output</strong>
+                        <code>${forwardBWT}</code>
+                    </div>
+                </div>
+
+                <div class="formula">
+                    BWT(${forwardText}) = ${forwardBWT}
+                </div>
+
+                <p>
+                    The FM-Index uses this transformed
+                    representation together with supporting
+                    rank and counting structures.
+                </p>
+
+                <p>
+                    Searching the forward index follows
+                    the familiar FM-Index process of
+                    examining query characters from
+                    right to left.
+                </p>
+            `
+        },
+
+        {
+            title: "Step 2: Construct the Mirror Index",
+            body: `
+                <p>
+                    The mirror index is constructed from the
+                    <strong>reversed reference sequence</strong>.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Original reference</strong>
+                        <code>${reference}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Reversed reference</strong>
+                        <code>${mirrorReference}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Mirror index input</strong>
+                        <code>${mirrorText}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Mirror BWT output</strong>
+                        <code>${mirrorBWT}</code>
+                    </div>
+                </div>
+
+                <div class="formula">
+                    BWT(${mirrorText}) = ${mirrorBWT}
+                </div>
+
+                <div class="callout">
+                    <p>
+                        <strong>Important:</strong>
+                        The mirror index reverses the
+                        reference. It does not perform
+                        reverse complementation.
+                    </p>
+
+                    <p>
+                        Both indexes cover the
+                        <strong>complete reference</strong>,
+                        not separate halves of it.
+                    </p>
+                </div>
+            `
+        },
+
+        {
+            title: "Step 3: How Double Indexing Reduces Backtracking",
+            body: `
+                <p>
+                    Bowtie can use the forward and mirror
+                    indexes in separate search phases.
+                    Consider a simplified policy that permits
+                    <strong>one mismatch</strong>.
+                </p>
+
+                <p>
+                    Our read differs at its final character,
+                    position <strong>${mismatches[0].position}</strong>.
+                    This is in the right half of the read.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Original read</strong>
+                        <code>${read}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Reversed read</strong>
+                        <code>${reversedRead}</code>
+                    </div>
+                </div>
+
+                ${comparisonTable(
+                    mirrorReference,
+                    reversedRead,
+                    "Reversed reference",
+                    "Reversed read"
+                )}
+
+                <p>
+                    In a forward-index phase that forbids
+                    substitutions in the right half, this
+                    mismatch is not allowed.
+                </p>
+
+                <p>
+                    In the mirror-index phase, the reversed
+                    read is searched instead. The mismatch
+                    now lies in the <strong>left half</strong>
+                    of the reversed read, where a substitution
+                    can be considered under this simplified
+                    one-mismatch policy.
+                </p>
+
+                <div class="callout">
+                    <p>
+                        <strong>Why it helps:</strong>
+                        By restricting substitutions in
+                        selected portions of the read,
+                        Bowtie reduces excessive branching
+                        during backward searching.
+                    </p>
+
+                    <p>
+                        This is a conceptual demonstration
+                        of double indexing, not a complete
+                        simulation of Bowtie's search phases.
+                    </p>
+                </div>
+            `
+        },
+
+        {
+            title: "Step 4: Quality-Aware Backtracking",
+            body: `
+                <p>
+                    Sequencing machines assign
+                    <strong>Phred quality scores</strong>
+                    to bases. Lower scores indicate greater
+                    uncertainty about the nucleotide.
+                </p>
+
+                <p>
+                    Suppose the final base
+                    <code>A</code> of our read has
+                    quality score <strong>Q = ${qualityScore}</strong>.
+                    Bowtie may consider a candidate alignment
+                    with <code>T</code> at this position.
+                </p>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Operation</th>
+                                <th>Candidate</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Exact search</td>
+                                <td><code>${read}</code></td>
+                                <td>No exact match</td>
+                            </tr>
+
+                            <tr>
+                                <td>Backtracking</td>
+                                <td><code>${reference}</code></td>
+                                <td>One mismatch considered</td>
+                            </tr>
+
+                            <tr>
+                                <td>Quality check</td>
+                                <td>Q = ${qualityScore}</td>
+                                <td>
+                                    ${qualityScore} ≤ ${qualityLimit}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="formula">
+                    Mismatch-quality sum =
+                    ${qualityScore} ≤ ${qualityLimit}
+                </div>
+
+                <p>
+                    In original Bowtie's default Maq-like
+                    alignment policy, 70 is the maximum
+                    sum of quality scores at mismatched
+                    positions. This example satisfies that
+                    quality-sum condition, assuming the
+                    other alignment restrictions are met.
+                </p>
+
+                <div class="callout">
+                    <p>
+                        <strong>Remember:</strong>
+                        The original sequencing read is not
+                        changed. The substitution represents
+                        a candidate alignment explored
+                        by the algorithm.
+                    </p>
+
+                    <p>
+                        The threshold of 70 is not a
+                        percentage or a measure of
+                        alignment confidence.
+                    </p>
+                </div>
+            `
+        },
+
+        {
+            title: "Final Result: Bowtie's Main Contributions",
+            body: `
+                <p>
+                    Bowtie combines compact BWT-based indexing
+                    with two important search improvements.
+                </p>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Technique</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Double indexing</td>
+                                <td>
+                                    Uses forward and reversed-reference
+                                    indexes to control backtracking.
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Quality-aware backtracking</td>
+                                <td>
+                                    Explores permitted mismatches while
+                                    considering nucleotide quality.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout">
+                    <p>
+                        <strong>Key takeaway:</strong>
+                        Bowtie demonstrates how BWT and FM-Index
+                        operations can support practical DNA read
+                        alignment, not just exact substring counting.
+                    </p>
+
+                    <p>
+                        Original Bowtie does not report
+                        gapped alignments. We will next examine
+                        BWA, which supports mismatches,
+                        insertions, and deletions.
+                    </p>
+                </div>
+            `
+        }
+    ];
+
+    function showStep() {
+        output.innerHTML = `
+            <h3>${stages[step].title}</h3>
+            ${stages[step].body}
+        `;
+
+        previous.disabled = step === 0;
+        next.disabled = step === stages.length - 1;
+
+        next.textContent = next.disabled
+            ? "Complete ✓"
+            : "Next step →";
+
+        progress.textContent =
+            `Step ${step} of ${stages.length - 1}`;
+    }
+
+    previous.addEventListener("click", () => {
+        step = Math.max(0, step - 1);
+        showStep();
+    });
+
+    next.addEventListener("click", () => {
+        step = Math.min(stages.length - 1, step + 1);
+        showStep();
+    });
+
+    reset.addEventListener("click", () => {
+        step = 0;
+        showStep();
+    });
+
+    showStep();
+}
+
+function initBWAStepper() {
+    if (!$("bwa-stepper")) return;
+
+    const reference = "ACGTACGT";
+    const read = "ACGACGT";
+    const n = reference.length;
+    const m = read.length;
+
+    const output = $("bwa-output");
+    const previous = $("bwa-prev");
+    const next = $("bwa-next");
+    const reset = $("bwa-reset");
+    const progress = $("bwa-progress");
+
+    // Construct D(i) using the equivalent teaching
+    // procedure from Li and Durbin (2009), Figure 4.
+    //
+    // The production BWA algorithm computes this
+    // efficiently using the reversed-reference index.
+
+    let segmentStart = 0;
+    let lowerBound = 0;
+
+    const dRows = [];
+
+    for (let i = 0; i < m; i++) {
+        const prefix = read.slice(0, i + 1);
+        const segment = read.slice(segmentStart, i + 1);
+
+        // Check whether the current segment occurs
+        // exactly somewhere in the reference.
+        const found = reference.includes(segment);
+
+        if (!found) {
+            // At least one additional difference is
+            // required for this part of the read.
+            lowerBound++;
+
+            // Restart the next segment after i.
+            segmentStart = i + 1;
+        }
+
+        dRows.push({
+            i: i,
+            prefix: prefix,
+            segment: segment,
+            found: found,
+            dValue: lowerBound,
+            nextStart: segmentStart
+        });
+    }
+
+    const D = dRows.map(row => row.dValue);
+
+    // Show the reference and the read aligned with
+    // one gap. This illustrates an indel, rather
+    // than a complete execution of BWA.
+    function makeGapTable() {
+        const referenceBases = [...reference];
+
+        const alignedRead = [
+            "A", "C", "G", "–", "A", "C", "G", "T"
+        ];
+
+        const headers = referenceBases.map((_, i) => `
+            <th>${i}</th>
+        `).join("");
+
+        const refCells = referenceBases.map((base, i) => `
+            <td style="${i === 3
+                ? 'background:#fff0e8;font-weight:bold;'
+                : ''}">
+                <code>${base}</code>
+            </td>
+        `).join("");
+
+        const readCells = alignedRead.map((base, i) => `
+            <td style="${i === 3
+                ? 'background:#fff0e8;font-weight:bold;'
+                : ''}">
+                <code>${base}</code>
+            </td>
+        `).join("");
+
+        return `
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Reference position</th>
+                            ${headers}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th>Reference</th>
+                            ${refCells}
+                        </tr>
+
+                        <tr>
+                            <th>Read alignment</th>
+                            ${readCells}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    // Show all D(i) values calculated so far.
+    function makeDTable(revealedCount, highlightedIndex = -1) {
+        const rows = dRows.slice(0, revealedCount).map(row => `
+            <tr style="${row.i === highlightedIndex
+                ? 'background:#e9f6f3;'
+                : ''}">
+                <td>${row.i}</td>
+                <td><code>${row.prefix}</code></td>
+                <td><code>${row.segment}</code></td>
+                <td>${row.found ? "Yes" : "No"}</td>
+                <td><strong>${row.dValue}</strong></td>
+            </tr>
+        `).join("");
+
+        return `
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>i</th>
+                            <th>Read prefix</th>
+                            <th>Segment tested</th>
+                            <th>Found?</th>
+                            <th>D(i)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        ${rows}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    // Initial lessons.
+    const stages = [
+        {
+            title: "Start: Why Does BWA Need Inexact Matching?",
+            body: `
+                <p>
+                    Consider the reference sequence and observed
+                    read below.
+                </p>
+
+                <div class="example-grid">
+                    <div class="example-box">
+                        <strong>Reference X</strong>
+                        <code>${reference}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Sequencing read W</strong>
+                        <code>${read}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Reference length</strong>
+                        <code>n = ${n}</code>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Read length</strong>
+                        <code>m = ${m}</code>
+                    </div>
+                </div>
+
+                <p>
+                    The complete read does not appear exactly
+                    in the reference:
+                </p>
+
+                <div class="formula">
+                    Exact match =
+                    ${reference.includes(read) ? "Yes" : "No"}
+                </div>
+
+                <p>
+                    Standard exact FM-Index Backward Search
+                    would therefore return an empty interval.
+                    BWA extends searching to consider
+                    permitted sequence differences.
+                </p>
+            `
+        },
+        {
+            title: "Step 1: Identify the Missing Nucleotide",
+            body: `
+                <p>
+                    Compare the reference and read carefully.
+                    The read is missing the nucleotide
+                    <strong>T</strong> at reference position
+                    <strong>3</strong>.
+                </p>
+
+                ${makeGapTable()}
+
+                <div class="callout">
+                    <p>
+                        <strong>Observation:</strong>
+                        The dash represents a gap in the read
+                        relative to the reference. This is
+                        an example of a deletion in the read.
+                    </p>
+                </div>
+
+                <div class="formula">
+                    One deletion = one edit
+                </div>
+
+                <p>
+                    An inexact alignment with a difference
+                    allowance of at least one edit can
+                    accommodate this example.
+                </p>
+
+                <p>
+                    BWA can explore substitutions,
+                    insertions, and deletions during its
+                    bounded search rather than stopping
+                    when the exact match fails.
+                </p>
+            `
+        }
+    ];
+
+    // Add seven interactive stages for D(0) through D(6).
+    dRows.forEach((row, index) => {
+        stages.push({
+            title: `Step ${index + 2}: Calculate D(${row.i})`,
+            body: `
+                <p>
+                    We are examining the read prefix
+                    <code>${row.prefix}</code>,
+                    ending at position
+                    <strong>i = ${row.i}</strong>.
+                </p>
+
+                <p>
+                    Test the current segment:
+                    <code>${row.segment}</code>.
+                </p>
+
+                <div class="formula">
+                    Is ${row.segment} a substring of
+                    ${reference}?
+                    <br>
+                    ${row.found ? "Yes" : "No"}
+                </div>
+
+                ${row.found ? `
+                    <p>
+                        The segment occurs in the reference.
+                        No additional difference is required
+                        by this lower-bound calculation.
+                    </p>
+                ` : `
+                    <p>
+                        The segment does not occur exactly
+                        in the reference. Therefore, at least
+                        one additional difference is required.
+                    </p>
+
+                    <p>
+                        Increase the lower bound by one,
+                        then restart the next segment at
+                        read position
+                        <strong>${row.nextStart}</strong>.
+                    </p>
+                `}
+
+                <div class="formula">
+                    D(${row.i}) = ${row.dValue}
+                </div>
+
+                ${makeDTable(index + 1, row.i)}
+
+                ${row.i === 3 ? `
+                    <div class="callout">
+                        <p>
+                            <strong>Important transition:</strong>
+                            <code>ACG</code> occurs in the
+                            reference, but <code>ACGA</code>
+                            does not. The lower bound
+                            increases from 0 to 1.
+                        </p>
+
+                        <p>
+                            The next segment starts from
+                            the character at position 4.
+                        </p>
+                    </div>
+                ` : ""}
+
+                ${row.i === 4 ? `
+                    <div class="callout">
+                        <p>
+                            <strong>Notice:</strong>
+                            The full prefix <code>ACGAC</code>
+                            still has no exact match, but
+                            the new segment <code>C</code>
+                            does occur in the reference.
+                            Therefore, D(4) stays at 1.
+                        </p>
+                    </div>
+                ` : ""}
+            `
+        });
+    });
+
+    // Demonstrate pruning after constructing D.
+    stages.push({
+        title: "Step 9: Use D(i) to Prune Search Branches",
+        body: `
+            <p>
+                We have now constructed the complete
+                lower-bound array:
+            </p>
+
+            ${makeDTable(dRows.length)}
+
+            <div class="formula">
+                D = [${D.join(", ")}]
+            </div>
+
+            <p>
+                During BWA's inexact search:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>i</strong> is the position of
+                    the remaining read prefix.
+                </li>
+                <li>
+                    <strong>z</strong> is the remaining
+                    difference allowance.
+                </li>
+                <li>
+                    <strong>D(i)</strong> is the lower
+                    bound on differences required.
+                </li>
+            </ul>
+
+            <h3>Pruning Condition</h3>
+
+            <div class="formula">
+                If z &lt; D(i), prune the branch.
+            </div>
+
+            <p>
+                At i = 6, our lower bound is
+                <strong>D(6) = ${D[6]}</strong>.
+            </p>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Remaining z</th>
+                            <th>Comparison</th>
+                            <th>Decision</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>0 &lt; ${D[6]}</td>
+                            <td>Prune</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>1 &lt; ${D[6]} is false</td>
+                            <td>Continue exploring</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout">
+                <p>
+                    <strong>Important:</strong>
+                    Passing the lower-bound test does
+                    not guarantee a valid alignment.
+                    It only means that the branch
+                    cannot yet be ruled out.
+                </p>
+            </div>
+        `
+    });
+
+    // Final lesson.
+    stages.push({
+        title: "Final Result: How BWA Improves Searching",
+        body: `
+            <p>
+                Our read <code>${read}</code> can be aligned
+                against <code>${reference}</code>
+                by allowing one deletion in the read.
+            </p>
+
+            ${makeGapTable()}
+
+            <div class="example-grid">
+                <div class="example-box">
+                    <strong>Required differences</strong>
+                    <code>1 deletion</code>
+                </div>
+
+                <div class="example-box">
+                    <strong>Final lower bound</strong>
+                    <code>D(6) = ${D[6]}</code>
+                </div>
+            </div>
+
+            <h3>Why BWA Is Effective</h3>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Technique</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>BWT / FM-Index</td>
+                            <td>
+                                Efficiently searches a large
+                                indexed reference genome.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Inexact matching</td>
+                            <td>
+                                Allows mismatches, insertions,
+                                and deletions.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Lower-bound array D(i)</td>
+                            <td>
+                                Eliminates search branches that
+                                cannot fit the remaining
+                                difference allowance.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Priority-based search</td>
+                            <td>
+                                Explores promising partial
+                                alignments based on their scores.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout">
+                <p>
+                    <strong>Key takeaway:</strong>
+                    BWA combines compressed indexing
+                    with bounded inexact searching.
+                    The D array helps avoid exploring
+                    branches that cannot produce an
+                    alignment within the allowed differences.
+                </p>
+            </div>
+
+            <p>
+                <strong>Complexity note:</strong>
+                The lower-bound array can be computed
+                in O(m) time using BWT-based operations
+                on the reversed reference, with constant-time
+                rank queries. Our substring checks are
+                a teaching demonstration, not BWA's
+                production implementation.
+            </p>
+        `
+    });
+
+    let step = 0;
+
+    // Display the currently selected lesson.
+    function showStep() {
+        output.innerHTML = `
+            <h3>${stages[step].title}</h3>
+            ${stages[step].body}
+        `;
+
+        previous.disabled = step === 0;
+        next.disabled = step === stages.length - 1;
+
+        next.textContent = next.disabled
+            ? "Complete ✓"
+            : "Next step →";
+
+        progress.textContent =
+            `Step ${step} of ${stages.length - 1}`;
+    }
+
+    previous.addEventListener("click", () => {
+        step = Math.max(0, step - 1);
+        showStep();
+    });
+
+    next.addEventListener("click", () => {
+        step = Math.min(stages.length - 1, step + 1);
+        showStep();
+    });
+
+    reset.addEventListener("click", () => {
+        step = 0;
+        showStep();
+    });
+
+    showStep();
+}
 // ==================================================
 // RENDER THE SELECTED LESSON
 // ==================================================
@@ -4478,6 +5916,9 @@ function render() {
   initSASamplingStepper();
   initComplexityStepper();
   initRankSelect();
+  initReadMappingStepper();
+  initBowtieStepper();
+  initBWAStepper();
 }
 
 // ==================================================
