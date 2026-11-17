@@ -980,6 +980,72 @@ Output: Original string T
                     </p>
                 </div>
 
+                <h3>Algorithm: FM-Index Backward Search</h3>
+
+                <p>
+                    The following pseudocode searches for a
+                    pattern by processing its characters
+                    from right to left. At each step, the
+                    matching interval is updated using
+                    the C array and Occ function.
+                </p>
+
+                <div class="stepper">
+                    <div class="mini-label">Pseudocode</div>
+
+                    <pre style="background: #fff;
+                                border: 1px solid #d8e5e3;
+                                border-radius: 8px;
+                                padding: 14px;
+                                overflow-x: auto;
+                                font-size: 13px;
+                                line-height: 1.7;"><code>Input: Pattern P, BWT string L, C array, Occ function
+Output: Number of occurrences of P
+
+1. n ← length(L)
+2. m ← length(P)
+3. SP ← 0
+4. EP ← n
+
+5. for i ← m - 1 down to 0 do
+       c ← P[i]
+
+       SP_new ← C[c] + Occ(c, SP)
+       EP_new ← C[c] + Occ(c, EP)
+
+       SP ← SP_new
+       EP ← EP_new
+
+       if SP = EP then
+           return 0
+       end if
+   end for
+
+6. return EP - SP</code></pre>
+
+                    <div class="callout">
+                        <p>
+                            <strong>Example:</strong>
+                            For <code>T = banana$</code>
+                            and <code>P = ana</code>,
+                            backward search updates the
+                            matching interval as follows:
+                        </p>
+
+                        <p>
+                            <code>[0, 7)</code> →
+                            <code>[1, 4)</code> →
+                            <code>[5, 7)</code> →
+                            <code>[2, 4)</code>
+                        </p>
+
+                        <p>
+                            The final number of matches is
+                            <code>EP - SP = 4 - 2 = 2</code>.
+                        </p>
+                    </div>
+                </div>
+
                 <h3>Interactive Backward Search</h3>
 
                 <div class="stepper" id="backward-stepper">
