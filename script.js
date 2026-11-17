@@ -283,6 +283,51 @@ Output: Burrows-Wheeler Transform L
       <li><strong>L[i]</strong> = resulting BWT character</li>
     </ul>
 
+    <h3>Algorithm: BWT Construction Using a Suffix Array</h3>
+
+    <p>
+      The following pseudocode constructs the BWT
+      using the sorted suffix positions rather than
+      generating every cyclic rotation.
+    </p>
+
+    <div class="stepper">
+      <div class="mini-label">Pseudocode</div>
+
+      <pre style="background: #fff;
+                  border: 1px solid #d8e5e3;
+                  border-radius: 8px;
+                  padding: 14px;
+                  overflow-x: auto;
+                  font-size: 13px;
+                  line-height: 1.7;"><code>Input: String T ending with a unique sentinel $
+Output: Burrows-Wheeler Transform L
+
+1. SA ← SuffixArray(T)
+2. L ← empty string
+
+3. for each si in SA do
+       if si = 0 then
+           append $ to L
+       else
+           append T[si - 1] to L
+       end if
+   end for
+
+4. return L</code></pre>
+
+      <div class="callout">
+        <p>
+          <strong>Example:</strong>
+          For <code>T = banana$</code>,
+          the sorted suffix array is
+          <code>SA = [6, 5, 3, 1, 0, 4, 2]</code>.
+          The resulting BWT is
+          <code>L = annb$aa</code>.
+        </p>
+      </div>
+    </div>
+
     <div class="stepper" id="suffix-array-stepper">
       <div class="mini-label">
         Interactive Suffix Array Construction
