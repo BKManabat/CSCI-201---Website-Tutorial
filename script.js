@@ -1792,70 +1792,182 @@ Output: Number of occurrences of P
         id: "references",
         title: "References",
         html: `
-          <div class="mini-label">Original research</div>
-          <h2>References for further reading</h2>
 
-          <ul>
+          <div class="mini-label">Academic Sources</div>
+          <h2>References and Further Reading</h2>
+
+          <p>
+            The following sources support the concepts,
+            algorithms, worked examples, and applications
+            discussed throughout this tutorial. They also
+            appear in our CSCI 201 survey paper.
+          </p>
+
+          <h3>Genomics and Background</h3>
+          <ol>
+            <li>
+              MIT, <a href="https://igb.mit.edu/bioinformatics-topics/tools-a-basic-bioinformatics-toolkit/alignments-and-mappers"
+              target="_blank" rel="noopener noreferrer">
+              Alignments and Mappers</a>.
+            </li>
+            <li>
+              Bukyya et al. (2021),
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8635824/"
+              target="_blank" rel="noopener noreferrer">
+              DNA Profiling in Forensic Science: A Review</a>.
+            </li>
+            <li>
+              Canzar and Salzberg (2017),
+              <a href="https://doi.org/10.1109/JPROC.2015.2455551"
+              target="_blank" rel="noopener noreferrer">
+              Short Read Mapping: An Algorithmic Tour</a>.
+            </li>
+            <li>
+              Collins English Dictionary,
+              <a href="https://www.collinsdictionary.com/dictionary/english/genomics"
+              target="_blank" rel="noopener noreferrer">
+              Genomics</a>.
+            </li>
+            <li>
+              Illumina,
+              <a href="https://www.illumina.com/science/technology/next-generation-sequencing/plan-experiments/read-length.html"
+              target="_blank" rel="noopener noreferrer">
+              Sequencing Read Length</a>.
+            </li>
+            <li>
+              Langmead,
+              <a href="https://www.cs.jhu.edu/~langmea/resources/lecture_notes/01_genomics_comp_genomics_v2.pdf"
+              target="_blank" rel="noopener noreferrer">
+              What Are Genomics and Computational Genomics?</a>.
+            </li>
+          </ol>
+
+          <h3>BWT and FM-Index</h3>
+          <ol>
             <li>
               Burrows and Wheeler (1994),
-              <em>A Block-Sorting Lossless
-              Data Compression Algorithm</em>.
+              <a href="https://www.cs.jhu.edu/~langmea/resources/burrows_wheeler.pdf"
+              target="_blank" rel="noopener noreferrer">
+              A Block-Sorting Lossless Data Compression Algorithm</a>.
             </li>
-
             <li>
               Ferragina and Manzini (2000),
-              <em>Opportunistic Data Structures
-              with Applications</em>.
+              <a href="https://doi.org/10.1109/SFCS.2000.892127"
+              target="_blank" rel="noopener noreferrer">
+              Opportunistic Data Structures with Applications</a>.
             </li>
-
             <li>
+              Ferro and Boucher (2025),
+              <a href="https://doi.org/10.4230/OASIcs.Manzini.6"
+              target="_blank" rel="noopener noreferrer">
+              Optimizing the Performance of the FM-Index
+              for Large-Scale Data</a>.
+            </li>
+            <li>
+              Karkkainen and Sanders (2003),
+              <a href="https://doi.org/10.1007/3-540-45061-0_73"
+              target="_blank" rel="noopener noreferrer">
+              Simple Linear Work Suffix Array Construction</a>.
+            </li>
+            <li>
+              Langmead,
+              <a href="https://www.langmead-lab.org/teaching.html"
+              target="_blank" rel="noopener noreferrer">
+              Burrows-Wheeler Transform and FM Index
+              Lecture Materials</a>.
+            </li>
+            <li>
+              Manzini (1999),
+              <a href="https://doi.org/10.1007/3-540-48340-3_4"
+              target="_blank" rel="noopener noreferrer">
+              The Burrows-Wheeler Transform: Theory and Practice</a>.
+            </li>
+            <li>
+              Stanford University, CS262,
+              <a href="https://web.stanford.edu/class/cs262/archives/presentations/lecture4.pdf"
+              target="_blank" rel="noopener noreferrer">
+              Burrows-Wheeler Transform Lecture</a>.
+            </li>
+          </ol>
+
+          <h3>Succinct and Compressed Data Structures</h3>
+          <ol>
+            <li>
+              Grossi and Vitter (2005),
+              <a href="https://doi.org/10.1137/S0097539702402354"
+              target="_blank" rel="noopener noreferrer">
+              Compressed Suffix Arrays and Suffix Trees
+              with Applications to Text Indexing
+              and String Matching</a>.
+            </li>
+            <li>
+              Jacobson (1989),
+              <a href="https://doi.org/10.1109/SFCS.1989.63533"
+              target="_blank" rel="noopener noreferrer">
+              Space-Efficient Static Trees and Graphs</a>.
+            </li>
+            <li>
+              Navarro (2014),
+              <a href="https://doi.org/10.1016/j.jda.2013.07.004"
+              target="_blank" rel="noopener noreferrer">
+              Wavelet Trees for All</a>.
+            </li>
+            <li>
+              Navarro and Providel (2012),
+              <a href="https://users.dcc.uchile.cl/~gnavarro/ps/sea12.1.pdf"
+              target="_blank" rel="noopener noreferrer">
+              Fast, Small, Simple Rank/Select on Bitmaps</a>.
+            </li>
+            <li>
+              Sadakane (2007),
+              <a href="https://doi.org/10.1007/s00224-006-1198-x"
+              target="_blank" rel="noopener noreferrer">
+              Compressed Suffix Trees with Full Functionality</a>.
+            </li>
+            <li>
+              Valimaki et al. (2010),
+              <a href="https://doi.org/10.1145/1498698.1594228"
+              target="_blank" rel="noopener noreferrer">
+              Engineering a Compressed Suffix Tree
+              Implementation</a>.
+            </li>
+          </ol>
+
+          <h3>Bioinformatics Applications</h3>
+          <ol>
+            <li>
+              Langmead et al. (2009),
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2690996/"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Langmead et al. (2009),
-                original Bowtie paper
-              </a>.
+              target="_blank" rel="noopener noreferrer">
+              Ultrafast and Memory-Efficient Alignment
+              of Short DNA Sequences to the Human Genome
+              (Bowtie)</a>.
             </li>
-
             <li>
+              Li and Durbin (2009),
               <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2705234/"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Li and Durbin (2009),
-                original BWA paper
-              </a>.
+              target="_blank" rel="noopener noreferrer">
+              Fast and Accurate Short Read Alignment
+              with Burrows-Wheeler Transform (BWA)</a>.
             </li>
-          </ul>
+            <li>
+              Li, Ruan, and Durbin (2008),
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2577856/"
+              target="_blank" rel="noopener noreferrer">
+              Mapping Short DNA Sequencing Reads and
+              Calling Variants Using Mapping Quality Scores</a>.
+            </li>
+          </ol>
 
-          <p>
-            Expand this bibliography to match
-            the final research paper before publication.
-          </p>
-        `
-      },
-      {
-        id: "links",
-        title: "Paper & Slides",
-        html: `
-          <div class="mini-label">Project deliverables</div>
-          <h2>Research paper and presentation</h2>
-
-          <p>
-            Add the public links to your final
-            LaTeX survey paper and PDF slide pack
-            once those files are published.
-          </p>
-
-          <div class="example-grid">
-            <div class="example-box">
-              <strong>Survey paper</strong>
-              <p>Link to be added</p>
-            </div>
-
-            <div class="example-box">
-              <strong>Presentation slides</strong>
-              <p>Link to be added</p>
-            </div>
+          <div class="callout">
+            <p>
+              <strong>Note:</strong>
+              These references provide the theoretical
+              foundations and original research behind
+              the algorithms presented in this tutorial.
+              Refer to the survey paper for the complete
+              academic bibliography.
+            </p>
           </div>
         `
       }
