@@ -154,12 +154,12 @@ const lessons = [
               <code>a</code>, <code>b</code>, and <code>n</code>.
             </p>
           </div>
-  
+          
           <h3>Algorithm: BWT Construction Using Cyclic Rotations</h3>
           <p>
-            The following pseudocode summarizes how the BWT
-            is constructed. Follow the interactive example
-            below to see each operation step by step.
+            The following pseudocode summarizes the BWT
+            construction process. Use the interactive
+            walkthrough below to follow each step.
           </p>
 
           <div class="stepper">
@@ -195,12 +195,13 @@ Output: Burrows-Wheeler Transform L
             <div class="callout">
               <p>
                 <strong>Example:</strong>
-                For <code>T = banana$</code>, the
-                resulting BWT is <code>L = annb$aa</code>.
+                For <code>T = banana$</code>,
+                the resulting BWT is
+                <code>L = annb$aa</code>.
               </p>
             </div>
           </div>
-          
+
           <div class="stepper" id="bwt-rotation-stepper">
             <div
               id="bwt-rotation-output"
