@@ -154,7 +154,53 @@ const lessons = [
               <code>a</code>, <code>b</code>, and <code>n</code>.
             </p>
           </div>
+  
+          <h3>Algorithm: BWT Construction Using Cyclic Rotations</h3>
+          <p>
+            The following pseudocode summarizes how the BWT
+            is constructed. Follow the interactive example
+            below to see each operation step by step.
+          </p>
 
+          <div class="stepper">
+            <div class="mini-label">Pseudocode</div>
+
+            <pre style="background: #fff;
+                        border: 1px solid #d8e5e3;
+                        border-radius: 8px;
+                        padding: 14px;
+                        overflow-x: auto;
+                        font-size: 13px;
+                        line-height: 1.7;"><code>Input: String T ending with a unique sentinel $
+Output: Burrows-Wheeler Transform L
+
+1. n ← length(T)
+2. rotations ← empty list
+
+3. for i ← 0 to n - 1 do
+       rotation ← T[i:n] + T[0:i]
+       append rotation to rotations
+   end for
+
+4. sort rotations lexicographically
+
+5. L ← empty string
+
+6. for each rotation in rotations do
+       append last character of rotation to L
+   end for
+
+7. return L</code></pre>
+
+            <div class="callout">
+              <p>
+                <strong>Example:</strong>
+                For <code>T = banana$</code>, the
+                resulting BWT is <code>L = annb$aa</code>.
+              </p>
+            </div>
+          </div>
+          
           <div class="stepper" id="bwt-rotation-stepper">
             <div
               id="bwt-rotation-output"
