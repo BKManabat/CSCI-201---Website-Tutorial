@@ -422,6 +422,49 @@ Output: Burrows-Wheeler Transform L
       </p>
     </div>
 
+          <h3>Algorithm: Inverse BWT Using LF-Mapping</h3>
+
+          <p>
+            The following pseudocode reconstructs the
+            original string from its BWT output by
+            repeatedly applying LF-mapping.
+          </p>
+
+          <div class="stepper">
+            <div class="mini-label">Pseudocode</div>
+
+            <pre style="background: #fff;
+                        border: 1px solid #d8e5e3;
+                        border-radius: 8px;
+                        padding: 14px;
+                        overflow-x: auto;
+                        font-size: 13px;
+                        line-height: 1.7;"><code>Input: BWT string L with a unique sentinel $
+       and access to C and Occ
+Output: Original string T
+
+1. n ← length(L)
+2. row ← positionOf(L, $)
+3. T ← character array of length n
+
+4. for i ← n - 1 down to 0 do
+       T[i] ← L[row]
+       row ← C[L[row]] + Occ(L[row], row)
+   end for
+
+5. return T</code></pre>
+
+            <div class="callout">
+              <p>
+                <strong>Example:</strong>
+                For <code>L = annb$aa</code>,
+                the sentinel is at row <code>4</code>.
+                Following LF-mapping reconstructs
+                <code>T = banana$</code>.
+              </p>
+            </div>
+          </div>
+
     <div class="stepper" id="inverse-bwt-stepper">
       <div class="mini-label">Interactive Inverse BWT</div>
 
