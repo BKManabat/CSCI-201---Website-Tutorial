@@ -6230,6 +6230,8 @@ function render() {
   initComplexityStepper();
   initRankSelect();
   initBitVectors();
+  initWaveletTree();
+  initCompressedSuffix();
   initReadMappingStepper();
   initBowtieStepper();
   initBWAStepper();

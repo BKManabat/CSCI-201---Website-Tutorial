@@ -1,5 +1,8 @@
 #lesson-content:has(#bit-query-demo),
-#lesson-content:has(#block-count-demo) {
+#lesson-content:has(#block-count-demo),
+#lesson-content:has(#wavelet-demo),
+#lesson-content:has(#topology-demo),
+#lesson-content:has(#sampling-demo) {
   min-width: 0;
 }
 
