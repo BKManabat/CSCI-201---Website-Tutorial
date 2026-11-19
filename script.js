@@ -1776,8 +1776,7 @@ Output: Number of occurrences of P
             </a>.
           </p>
         `
-      }
-      
+      },
       {
         id: "hisat",
         title: "HISAT (RNA Alignment)",
