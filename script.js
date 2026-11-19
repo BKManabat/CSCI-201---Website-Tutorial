@@ -1777,6 +1777,213 @@ Output: Number of occurrences of P
           </p>
         `
       }
+      
+      {
+        id: "hisat",
+        title: "HISAT (RNA Alignment)",
+        html: `
+          <div class="mini-label">Applications in Bioinformatics</div>
+          <h2>HISAT: Splice-Aware RNA Alignment</h2>
+
+          <p>
+            <strong>HISAT</strong>, introduced by Kim, Langmead,
+            and Salzberg (2015), is an RNA-seq read aligner.
+            Like Bowtie and BWA, it benefits from BWT/FM-Index
+            searching, but it is designed to handle
+            <strong>spliced RNA alignments</strong>.
+          </p>
+
+          <h3>Why are exon junctions challenging?</h3>
+
+          <p>
+            <strong>Exons</strong> are portions retained in
+            mature RNA, while <strong>introns</strong> are
+            removed during RNA splicing. An
+            <strong>exon junction</strong> is the point where
+            two exons meet after the intron is removed.
+            An RNA-seq read can span that junction even
+            though its two parts are separated by a long
+            intron in the reference genome.
+          </p>
+
+          <div class="stepper">
+            <div class="mini-label">Worked Example: Splicing</div>
+
+            <pre style="overflow-x: auto; max-width: 100%;
+                        line-height: 1.7;"><code>Reference genome:
+Exon 1    Intron     Exon 2
+ATGC      GGGGGGG    CATA
+
+After RNA splicing:
+ATGC + CATA = ATGCCATA
+
+RNA read crossing the junction:
+GCCATA</code></pre>
+
+            <p>
+              The toy read <code>GCCATA</code> contains
+              <code>GC</code> from Exon 1 and
+              <code>CATA</code> from Exon 2. It does not
+              appear contiguously in the genomic example
+              because the intron lies between those exons.
+            </p>
+          </div>
+
+          <h3>How HISAT Uses the FM-Index</h3>
+
+          <div class="example-grid">
+            <div class="example-box">
+              <strong>Global FM-Index</strong>
+              <p>
+                Searches the whole reference genome to
+                anchor possible RNA-read alignments.
+              </p>
+            </div>
+
+            <div class="example-box">
+              <strong>Local FM-Indexes</strong>
+              <p>
+                Search smaller genomic regions to extend
+                candidate alignments efficiently.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p>
+              <strong>Key Takeaway:</strong>
+              The FM-Index supplies efficient searching.
+              HISAT adds hierarchical indexing and
+              splice-aware alignment strategies to handle
+              RNA reads spanning exon junctions.
+            </p>
+
+            <p>
+              This is a simplified teaching example,
+              not a complete HISAT alignment simulation.
+            </p>
+          </div>
+
+          <p class="mini-label">
+            Source:
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4655817/"
+               target="_blank" rel="noopener noreferrer">
+              Kim, Langmead, and Salzberg (2015), HISAT
+            </a>.
+          </p>
+        `
+      },
+      {
+        id: "sga",
+        title: "SGA (Sequence Assembly)",
+        html: `
+          <div class="mini-label">Applications in Bioinformatics</div>
+          <h2>SGA: Assemble DNA Reads Using Overlaps</h2>
+
+          <p>
+            <strong>SGA (String Graph Assembler)</strong>,
+            introduced by Simpson and Durbin, uses
+            <strong>FM-Index-based compressed structures</strong>
+            to index a large collection of DNA reads and
+            efficiently identify overlaps between them.
+            Its goal is <strong>de novo assembly</strong>:
+            reconstruct longer DNA sequences without
+            requiring a complete reference genome.
+          </p>
+
+          <h3>What Is an Overlapping Sequence?</h3>
+
+          <p>
+            A <strong>suffix-prefix overlap</strong>
+            occurs when the ending of one read matches
+            the beginning of another read. For example,
+            the suffix <code>TAC</code> of Read 1 matches
+            the prefix <code>TAC</code> of Read 2.
+          </p>
+
+          <div class="stepper">
+            <div class="mini-label">Worked Example: Read Overlap</div>
+
+            <pre style="overflow-x: auto; max-width: 100%;
+                        line-height: 1.7;"><code>Read 1: ACGTTAC
+Read 2:     TACGGA
+
+Overlap: TAC
+
+Assembled contig: ACGTTACGGA</code></pre>
+
+            <p>
+              The overlap <code>TAC</code> appears only
+              once in the resulting longer sequence,
+              called a <strong>contig</strong>.
+              This example assumes both reads are shown
+              in a compatible orientation.
+            </p>
+          </div>
+
+          <h3>How SGA Uses the FM-Index</h3>
+
+          <div class="example-grid">
+            <div class="example-box">
+              <strong>1. Index the Reads</strong>
+              <p>
+                Build compressed search structures over
+                the collection of sequencing reads.
+              </p>
+            </div>
+
+            <div class="example-box">
+              <strong>2. Find Overlaps</strong>
+              <p>
+                Search for compatible suffix-prefix
+                relationships between reads.
+              </p>
+            </div>
+
+            <div class="example-box">
+              <strong>3. Build a String Graph</strong>
+              <p>
+                Represent reads and their overlap
+                relationships, then simplify the graph.
+              </p>
+            </div>
+
+            <div class="example-box">
+              <strong>4. Assemble Contigs</strong>
+              <p>
+                Follow compatible graph paths to
+                reconstruct longer DNA sequences.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p>
+              <strong>Important:</strong>
+              SGA does not automatically merge every
+              pair of reads that shares a few bases.
+              Sequencing errors and repeated DNA can
+              produce misleading overlaps, so graph
+              processing is necessary.
+            </p>
+
+            <p>
+              <strong>Alignment vs. Assembly:</strong>
+              Bowtie, BWA, and HISAT seek locations
+              on a reference. SGA seeks overlaps among
+              reads to reconstruct longer sequences.
+            </p>
+          </div>
+
+          <p class="mini-label">
+            Source:
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3290790/"
+               target="_blank" rel="noopener noreferrer">
+              Simpson and Durbin (2012), String Graph Assembler
+            </a>.
+          </p>
+        `
+      }
     ]
   },
 
@@ -1956,6 +2163,24 @@ Output: Number of occurrences of P
               target="_blank" rel="noopener noreferrer">
               Mapping Short DNA Sequencing Reads and
               Calling Variants Using Mapping Quality Scores</a>.
+            </li>
+            
+            <li>
+              Kim, Langmead, and Salzberg (2015),
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4655817/"
+                 target="_blank" rel="noopener noreferrer">
+                HISAT: A Fast Spliced Aligner with Low Memory
+                Requirements (RNA Alignment)
+              </a>.
+            </li>
+
+            <li>
+              Simpson and Durbin (2012),
+              <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3290790/"
+                 target="_blank" rel="noopener noreferrer">
+                Efficient de novo Assembly of Large Genomes
+                Using Compressed Data Structures (SGA)
+              </a>.
             </li>
           </ol>
 
