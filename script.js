@@ -2027,6 +2027,11 @@ Assembled contig: ACGTTACGGA</code></pre>
         `
       },
 
+      {
+        id: "references",
+        title: "References",
+        html: `
+        
           <div class="mini-label">Academic Sources</div>
           <h2>References and Further Reading</h2>
 
