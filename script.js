@@ -1995,9 +1995,37 @@ Assembled contig: ACGTTACGGA</code></pre>
     description: "Find references and links to the project deliverables.",
     topics: [
       {
-        id: "references",
-        title: "References",
+        id: "links",
+        title: "Project Downloads",
         html: `
+          <div class="mini-label">CSCI 201 Final Project</div>
+
+          <h2>Project Downloads</h2>
+
+          <p>
+            Succinct and Compact Data Structures
+            in Genomics and Bioinformatics
+          </p>
+
+          <h3>Review Paper</h3>
+          <p>
+            <a href="https://drive.google.com/file/d/1gGmgp3mUBzjFlyB712OG9eohbu8NMilA/view?usp=sharing"
+               target="_blank"
+               rel="noopener noreferrer">
+              View / Download Review Paper (PDF)
+            </a>
+          </p>
+
+          <h3>Presentation Slides</h3>
+          <p>
+            <a href="https://docs.google.com/presentation/d/1L3zR9G4zNtmkpR3WAh_i1AupqO3Gp0RF/edit?usp=sharing&ouid=107920540040048096484&rtpof=true&sd=true"
+               target="_blank"
+               rel="noopener noreferrer">
+              View Presentation Slides (PowerPoint)
+            </a>
+          </p>
+        `
+      },
 
           <div class="mini-label">Academic Sources</div>
           <h2>References and Further Reading</h2>
