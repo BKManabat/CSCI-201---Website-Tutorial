@@ -2018,10 +2018,25 @@ Assembled contig: ACGTTACGGA</code></pre>
 
           <h3>Presentation Slides</h3>
           <p>
-            <a href="https://docs.google.com/presentation/d/1L3zR9G4zNtmkpR3WAh_i1AupqO3Gp0RF/edit?usp=sharing&ouid=107920540040048096484&rtpof=true&sd=true"
+            <a href="https://drive.google.com/file/d/1gGmgp3mUBzjFlyB712OG9eohbu8NMilA/view?usp=sharing"
                target="_blank"
                rel="noopener noreferrer">
-              View Presentation Slides (PowerPoint)
+              View Presentation Slides (PDF)
+            </a>
+          </p>
+          
+          <h3>Group Member's Tutorial Website</h3>
+          <p>
+            Explore the complementary tutorial by
+            Bryan Kristofer Manabat, covering succinct
+            data structures and compressed suffix structures.
+          </p>
+
+          <p>
+            <a href="https://bkmanabat.github.io/CSCI-201---Website-Tutorial/#/intro/overview"
+               target="_blank"
+               rel="noopener noreferrer">
+              Visit Bryan Kristofer Manabat's Tutorial
             </a>
           </p>
         `
