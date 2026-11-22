@@ -2028,8 +2028,7 @@ Assembled contig: ACGTTACGGA</code></pre>
           <h3>Group Member's Tutorial Website</h3>
           <p>
             Explore the complementary tutorial by
-            Bryan Kristofer Manabat, covering succinct
-            data structures and compressed suffix structures.
+            Bryan Kristofer Manabat and Miguel Juan Siao.
           </p>
 
           <p>
