@@ -2039,6 +2039,13 @@ Assembled contig: ACGTTACGGA</code></pre>
               Visit Bryan Kristofer Manabat's Tutorial
             </a>
           </p>
+          <p>
+            <a href="https://cloudsiao.github.io/CSCI-201---Website-Tutorial/#/intro/overview"
+               target="_blank"
+               rel="noopener noreferrer">
+              Visit Miguel Juan Siao's Tutorial
+            </a>
+          </p>
         `
       },
 
