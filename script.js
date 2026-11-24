@@ -2018,7 +2018,7 @@ Assembled contig: ACGTTACGGA</code></pre>
 
           <h3>Presentation Slides</h3>
           <p>
-            <a href="https://drive.google.com/file/d/1gGmgp3mUBzjFlyB712OG9eohbu8NMilA/view?usp=sharing"
+            <a href="https://docs.google.com/presentation/d/1L3zR9G4zNtmkpR3WAh_i1AupqO3Gp0RF/export/pdf"
                target="_blank"
                rel="noopener noreferrer">
               View Presentation Slides (PDF)
