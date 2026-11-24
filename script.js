@@ -2018,7 +2018,7 @@ Assembled contig: ACGTTACGGA</code></pre>
 
           <h3>Presentation Slides</h3>
           <p>
-            <a href="https://docs.google.com/presentation/d/1L3zR9G4zNtmkpR3WAh_i1AupqO3Gp0RF/export/pdf"
+            <a href="https://drive.google.com/file/d/1p_qanzRGzFF689QeAgTDxeIk7OEzxpY-/view?usp=sharing"
                target="_blank"
                rel="noopener noreferrer">
               View Presentation Slides (PDF)
@@ -2028,8 +2028,7 @@ Assembled contig: ACGTTACGGA</code></pre>
           <h3>Group Member's Tutorial Website</h3>
           <p>
             Explore the complementary tutorial by
-            Bryan Kristofer Manabat, covering succinct
-            data structures and compressed suffix structures.
+            Bryan Kristofer Manabat and Miguel Juan Siao.
           </p>
 
           <p>
